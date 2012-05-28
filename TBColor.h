@@ -1,0 +1,23 @@
+//
+//  TBColor.h
+//
+//  Created by Zoreslav Khimich on 5/26/12.
+//  Copyright (c) 2012 Zoreslav Khimich <zoreslav@me.com>
+//
+//  Licensed under WTFPL (http://sam.zoy.org/wtfpl/)
+
+#import <Foundation/Foundation.h>
+
+@interface TBColor : NSObject
+
+- (CGColorRef)ref;
+
+- (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
+
++ (TBColor*)gray:(CGFloat)gray alpha:(CGFloat)alpha;
++ (TBColor*)gray:(CGFloat)gray;
++ (TBColor*)black;
++ (TBColor*)white;
+
+
+@end
