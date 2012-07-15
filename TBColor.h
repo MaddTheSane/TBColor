@@ -10,9 +10,16 @@
 
 @interface TBColor : NSObject
 
+@property(nonatomic, readonly) CGColorRef CGColor;
 - (CGColorRef)ref;
 
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
+
++ (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
++ (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
+
++ (TBColor*)fromARGB32:(int32_t)argb32;
++ (TBColor*)fromRGB24:(int32_t)rgb24;
 
 + (TBColor*)gray:(CGFloat)gray alpha:(CGFloat)alpha;
 + (TBColor*)gray:(CGFloat)gray;
