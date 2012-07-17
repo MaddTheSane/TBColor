@@ -26,7 +26,7 @@
 - (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha  {
     self = [super init];
     if (self) {
-        _CGColor = CGColorCreateGenericRGB(red, green, blue, alpha);                                           
+        _CGColor = CGColorCreateGenericRGB(red, green, blue, alpha);
     }
     return self;
 }
@@ -71,7 +71,7 @@
     return [TBColor R:red G:green B:blue A:1.f];
 }
 
-+ (TBColor*)fromARGB32:(int32_t)argb32 {
++ (TBColor*)fromARGB32:(uint32_t)argb32 {
     const unsigned char a8 = (argb32 & 0xFF000000) >> 24;
     const unsigned char r8 = (argb32 & 0x00FF0000) >> 16;
     const unsigned char g8 = (argb32 & 0x0000FF00) >> 8;
@@ -79,7 +79,7 @@
     return [TBColor R: (CGFloat)(r8)/255.f G:(CGFloat)(g8)/255.f B:(CGFloat)(b8)/255.f A:(CGFloat)(a8)/255.f];
 }
 
-+ (TBColor*)fromRGB24:(int32_t)rgb24 {
++ (TBColor*)fromRGB24:(uint32_t)rgb24 {
     return [TBColor fromARGB32:0xFF000000 | rgb24];
 }
 
