@@ -10,7 +10,7 @@ There are some convenience constructors, see below.
 Life Span
 ---------
 
-Underlying CGColorRef lives no longer then it's owning TBColor instance. Doing this would be a bad idea:
+Underlying CGColorRef lives for as long as it's owning TBColor instance. Doing this would be a bad idea:
 
     CGColorRef makeMeAColor() {
         TBColor *willProbablyDieSoon = [TBColor fromRGB24:0x336699].CGColor;
