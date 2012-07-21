@@ -28,7 +28,7 @@ TBColor *makeMeAColor() {
 
 // ...
 
-CALayer *coloredLayer = [CALayer *layer];
+CALayer *coloredLayer = [CALayer layer];
 coloredLayer.backgroundColor = makeMeAColor().CGColor;
 ```
 
