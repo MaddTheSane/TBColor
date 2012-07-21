@@ -14,6 +14,7 @@
 - (CGColorRef)ref;
 
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
+- (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 
 + (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
 + (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
