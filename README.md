@@ -12,22 +12,25 @@ Life Span
 
 Underlying CGColorRef lives for as long as it's owning TBColor instance. Doing this would be a bad idea:
 
-    CGColorRef makeMeAColor() {
-        TBColor *willProbablyDieSoon = [TBColor fromRGB24:0x336699].CGColor;
-        return willProbablyDieSoon.CGColor; // WRONG!
-    }
+```objc 
+CGColorRef makeMeAColor() {
+    TBColor *willProbablyDieSoon = [TBColor fromRGB24:0x336699].CGColor;
+    return willProbablyDieSoon.CGColor; // WRONG!
+}
+```
 
 If you absolutely must pass colors around, pass a TBColor instance instead:
 
-    TBColor *makeMeAColor() {
-        return [TBColor fromRGB24:0x336699]; // Okay.
-    }
+```objc
+TBColor *makeMeAColor() {
+    return [TBColor fromRGB24:0x336699]; // Okay.
+}
 
-    ...
+// ...
 
-    CALayer *coloredLayer = [CALayer *layer];
-    coloredLayer.backgroundColor = makeMeAColor().CGColor;
-
+CALayer *coloredLayer = [CALayer *layer];
+coloredLayer.backgroundColor = makeMeAColor().CGColor;
+```
 
 Usage
 -----
@@ -37,39 +40,40 @@ Usage
 ### Construction
 
 Generic RGB from CGFloats:
-
-    TBColor *theColor = [TBColor R:0.3f G:0.5f B:.12f];
-    CGContextSetFillColorWithColor(ctx, theColor.CGColor);
-
+```objc
+TBColor *theColor = [TBColor R:0.3f G:0.5f B:.12f];
+CGContextSetFillColorWithColor(ctx, theColor.CGColor);
+```
 or
-
-    CGContextSetFillColorWithColor(ctx, [TBColor R:0.3 G:0.5 B:.12].CGColor);
+```objc
+CGContextSetFillColorWithColor(ctx, [TBColor R:0.3 G:0.5 B:.12].CGColor);
+```
 
 Generic gray:
-
+```objc
     TBColor *theColor = [TBColor gray:0.35];
-
+```
 RGB and gray with alpha: 
-    
+```objc
     TBColor *semiYellow = [TBColor R:1.0 G:0.8 B:0.0 A:0.45];
     TBColor *semiGray = [TBColor gray:0.8 alpha:0.4];
-
+```
 24-bit RGB:
-
+```objc
     TBColor *twitterColor = [TBColor fromRGB24:0x9AE4E8]; // http://www.colourlovers.com/color/9AE4E8/twitter
-
+```
 32-bit ARGB:
-
+```objc
     TBColor *semiTransparentPurple = [TBColor fromARGB32:0x7FEE00FF];
-
+```
 Predefined colors:
-    
+```objc
     textLayer.backgroundColor = [TBColor white].CGColor;
     consoleLayer.backgroundColor = [TBColor black].CGColor;
     redLayer.backgroundColor = [TBColor red].CGColor;
     greenLayer.backgroundColor = [TBColor green].CGColor;
     blueLayer.backgroundColor = [TBColor blue].CGColor;
-
+```
 License
 -------
 
