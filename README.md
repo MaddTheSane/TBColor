@@ -7,6 +7,11 @@ iOS developers have `UIColor` which does the same thing. `TBColor` is supposed t
 
 There are some convenience constructors, see below.
 
+### Color Space
+
+TBColor uses ColorSync Generic RGB color space (well, actually, Quartz does). See [this][so1] StackOverflow question (and answer) for advice on how to synchronize colors in Photoshop and your application.
+
+
 Life Span
 ---------
 
@@ -80,3 +85,5 @@ License
 Do [what the fuck you want to][WTFPL].
 
 [WTFPL]: http://sam.zoy.org/wtfpl/
+[so1]: http://stackoverflow.com/questions/3146739/color-differences-between-cocoa-and-photoshop
+
