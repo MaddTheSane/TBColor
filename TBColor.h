@@ -26,5 +26,8 @@
 + (TBColor*)black;
 + (TBColor*)white;
 
++ (TBColor*)red;
++ (TBColor*)green;
++ (TBColor*)blue;
 
 @end

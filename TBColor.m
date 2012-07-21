@@ -83,5 +83,29 @@
     return [TBColor fromARGB32:0xFF000000 | rgb24];
 }
 
++ (TBColor*)red {
+    static TBColor* redColor = nil;
+    if (!redColor) {
+        redColor = [TBColor fromRGB24:0xFF0000];
+    }
+    return redColor;
+}
+
++ (TBColor*)green {
+    static TBColor*greenColor = nil;
+    if (!greenColor) {
+        greenColor = [TBColor fromRGB24:0x00FF00];
+    }
+    return greenColor;
+}
+
++ (TBColor*)blue {
+    static TBColor* blueColor = nil;
+    if (!blueColor) {
+        blueColor = [TBColor fromRGB24:0x0000FF];
+    }
+    return blueColor;
+}
+
 
 @end
