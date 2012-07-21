@@ -4,7 +4,7 @@
 //  Created by Zoreslav Khimich on 5/26/12.
 //  Copyright (c) 2012 Zoreslav Khimich <zoreslav@me.com>
 //
-//  Licensed under WTFPL (http://sam.zoy.org/wtfpl/)
+//  Licensed under WTFPL http://sam.zoy.org/wtfpl/
 
 #import "TBColor.h"
 @interface TBColor () {
