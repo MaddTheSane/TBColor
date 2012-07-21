@@ -19,8 +19,8 @@
 + (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
 + (TBColor*)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
 
-+ (TBColor*)fromARGB32:(uint32_t)argb32;
-+ (TBColor*)fromRGB24:(uint32_t)rgb24;
++ (TBColor*)fromARGB32:(uint32_t)argb32;    // e.g. CGColorRef transluentBlue = [TBColor fromARGB32:0x7F00FF00].CGColor;
++ (TBColor*)fromRGB24:(uint32_t)rgb24;      // e.g. CGColorRef yellow = [TBColor fromRGB24:0xFFFF00].CGColor;
 
 + (TBColor*)gray:(CGFloat)gray alpha:(CGFloat)alpha;
 + (TBColor*)gray:(CGFloat)gray;
