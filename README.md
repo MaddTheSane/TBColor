@@ -11,7 +11,6 @@ There are some convenience constructors, see below.
 
 TBColor uses ColorSync Generic RGB color space (well, actually, Quartz does). See [this][so1] StackOverflow question (and answer) for advice on how to synchronize colors in Photoshop and your application.
 
-
 Life Span
 ---------
 
