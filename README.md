@@ -17,23 +17,23 @@ Life Span
 Underlying CGColorRef lives for as long as it's owning TBColor instance. Doing this would be a bad idea:
 
 ```objc 
-CGColorRef makeMeAColor() {
-    TBColor *willProbablyDieSoon = [TBColor fromRGB24:0x336699].CGColor;
-    return willProbablyDieSoon.CGColor; // WRONG!
-}
+    CGColorRef makeMeAColor() {
+        TBColor *willProbablyDieSoon = [TBColor fromRGB24:0x336699].CGColor;
+        return willProbablyDieSoon.CGColor; // WRONG!
+    }
 ```
 
 If you absolutely must pass colors around, pass a TBColor instance instead:
 
 ```objc
-TBColor *makeMeAColor() {
-    return [TBColor fromRGB24:0x336699]; // Okay.
-}
+    TBColor *makeMeAColor() {
+        return [TBColor fromRGB24:0x336699]; // Okay.
+    }
 
-// ...
+    // ...
 
-CALayer *coloredLayer = [CALayer layer];
-coloredLayer.backgroundColor = makeMeAColor().CGColor;
+    CALayer *coloredLayer = [CALayer layer];
+    coloredLayer.backgroundColor = makeMeAColor().CGColor;
 ```
 
 Usage
@@ -41,16 +41,18 @@ Usage
 
 `TBColor`'s `CGColor` is a read-only property. It contains `CGColorRef` for the color.
 
+In a similar way `CGColorSpace` represents receiver's color space.
+
 ### Construction
 
 Generic RGB from CGFloats:
 ```objc
-TBColor *theColor = [TBColor R:0.3f G:0.5f B:.12f];
-CGContextSetFillColorWithColor(ctx, theColor.CGColor);
+    TBColor *theColor = [TBColor R:0.3f G:0.5f B:.12f];
+    CGContextSetFillColorWithColor(ctx, theColor.CGColor);
 ```
 or
 ```objc
-CGContextSetFillColorWithColor(ctx, [TBColor R:0.3 G:0.5 B:.12].CGColor);
+    CGContextSetFillColorWithColor(ctx, [TBColor R:0.3 G:0.5 B:.12].CGColor);
 ```
 
 Generic gray:
@@ -70,6 +72,11 @@ RGB and gray with alpha:
 ```objc
     TBColor *semiTransparentPurple = [TBColor fromARGB32:0x7FEE00FF];
 ```
+Pattern image:
+```objc 
+    self.layer.backgroundColor = [TBColor withPattern:[NSImage imageNamed:@"NSLinenBackgroundPattern"]].CGColor;
+```
+
 Predefined colors:
 ```objc
     textLayer.backgroundColor = [TBColor white].CGColor;
