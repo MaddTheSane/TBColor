@@ -10,11 +10,14 @@
 
 @interface TBColor : NSObject
 
-@property(nonatomic, readonly) CGColorRef CGColor;
+@property (nonatomic, readonly) CGColorRef CGColor;
+@property (nonatomic, readonly) CGColorSpaceRef CGColorSpace;
 - (CGColorRef)ref; // shortcut for CGColor property
 
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
 - (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
+- (id)initWithPatternImage:(NSImage *)image;
+- (id)initWithPatternCGImage:(CGImageRef)image; /* retains image, you may release it right away */
 
 + (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
 + (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
@@ -24,9 +27,12 @@
 
 + (TBColor *)gray:(CGFloat)gray alpha:(CGFloat)alpha;
 + (TBColor *)gray:(CGFloat)gray;
+
++ (TBColor *)withPattern:(NSImage *)pattern;
++ (TBColor *)withCGImagePattern:(CGImageRef)pattern;
+
 + (TBColor *)black;
 + (TBColor *)white;
-
 + (TBColor *)red;
 + (TBColor *)green;
 + (TBColor *)blue;

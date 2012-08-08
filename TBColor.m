@@ -9,6 +9,7 @@
 #import "TBColor.h"
 @interface TBColor () {
     CGColorRef _CGColor;
+    CGColorSpaceRef _CGColorSpace;
 }
 @end
 
@@ -31,7 +32,56 @@
     return self;
 }
 
+static void ImagePatternCallback (void *imagePtr, CGContextRef ctx) {
+    CGContextDrawImage(ctx, CGRectMake(0, 0, CGImageGetWidth(imagePtr), CGImageGetHeight(imagePtr)), imagePtr);
+}
+
+static void ImageReleaseCallback(void *imagePtr) {
+    CGImageRelease(imagePtr);
+}
+
+static CGColorRef CGColorMakeFromImage(CGImageRef image) {
+    static const CGPatternCallbacks callback = {0, ImagePatternCallback, ImageReleaseCallback};
+    CGPatternRef pattern = CGPatternCreate(image, NSMakeRect(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
+    CGColorSpaceRef coloredPatternColorSpace = CGColorSpaceCreatePattern(NULL);
+    CGFloat dummy = 1.0f;
+    CGColorRef color = CGColorCreateWithPattern(coloredPatternColorSpace, pattern, &dummy);
+    CGColorSpaceRelease(coloredPatternColorSpace);
+    CGPatternRelease(pattern);
+    return color;
+}
+
+- (id)initWithPatternImage:(NSImage *)image {
+    self = [super init];
+    if (self)
+    {
+        CGImageRef quartzImage = [image CGImageForProposedRect:NULL context:NULL hints:NULL];
+        _CGColor = CGColorMakeFromImage(quartzImage);
+        /* quartzImage will be released in ImageReleaseCallback */
+    }
+    return self;
+}
+
+- (id)initWithPatternCGImage:(CGImageRef)image {
+    self = [super init];
+    if (self)
+    {
+        CGImageRetain(image);
+        _CGColor = CGColorMakeFromImage(image);
+        /* image will be released in ImageReleaseCallback */
+    }
+    return self;
+}
+
+- (CGColorSpaceRef)CGColorSpace {
+    if (_CGColorSpace == NULL) {
+        _CGColorSpace = CGColorGetColorSpace(_CGColor);
+    }
+    return _CGColorSpace;
+}
+
 - (void)dealloc {
+    CGColorSpaceRelease(_CGColorSpace);
     CGColorRelease(_CGColor);
 }
 
@@ -81,6 +131,15 @@
 
 + (TBColor *)fromRGB24:(uint32_t)rgb24 {
     return [TBColor fromARGB32:0xFF000000 | rgb24];
+}
+
+
++ (TBColor *)withPattern:(NSImage *)pattern {
+    return [[TBColor alloc]initWithPatternImage:pattern];
+}
+
++ (TBColor *)withCGImagePattern:(CGImageRef)pattern {
+    return [[TBColor alloc]initWithPatternCGImage:pattern];
 }
 
 + (TBColor *)red {
