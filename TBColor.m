@@ -166,5 +166,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return blueColor;
 }
 
+- (void)setFillForContext:(CGContextRef)ctx {
+    CGContextSetFillColorWithColor(ctx, self.CGColor);
+}
+
+- (void)setStrokeForContext:(CGContextRef)ctx {
+    CGContextSetStrokeColorWithColor(ctx, self.CGColor);
+}
+
+
 
 @end

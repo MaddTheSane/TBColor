@@ -19,6 +19,9 @@
 - (id)initWithPatternImage:(NSImage *)image;
 - (id)initWithPatternCGImage:(CGImageRef)image; /* retains image, you may release it right away */
 
+- (void)setFillForContext:(CGContextRef)ctx;
+- (void)setStrokeForContext:(CGContextRef)ctx;
+
 + (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
 + (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
 
