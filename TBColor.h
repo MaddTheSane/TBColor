@@ -27,6 +27,8 @@
 
 + (TBColor *)fromARGB32:(uint32_t)argb32;    // e.g. TBColor *transluentBlue = [TBColor fromARGB32:0x7F00FF00];
 + (TBColor *)fromRGB24:(uint32_t)rgb24;      // e.g. TBColor *yellow = [TBColor fromRGB24:0xFFFF00];
++ (TBColor *)fromRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha;
+
 
 + (TBColor *)gray:(CGFloat)gray alpha:(CGFloat)alpha;
 + (TBColor *)gray:(CGFloat)gray;

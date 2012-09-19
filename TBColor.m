@@ -121,12 +121,18 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return [TBColor R:red G:green B:blue A:1.f];
 }
 
+
++ (TBColor *)fromRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha {
+    const unsigned char r8 = (rgb24 & 0x00FF0000) >> 16;
+    const unsigned char g8 = (rgb24 & 0x0000FF00) >> 8;
+    const unsigned char b8 = (rgb24 & 0x000000FF);
+    return [TBColor R: (CGFloat)(r8)/255.f G:(CGFloat)(g8)/255.f B:(CGFloat)(b8)/255.f A:(CGFloat)alpha];
+}
+
 + (TBColor *)fromARGB32:(uint32_t)argb32 {
     const unsigned char a8 = (argb32 & 0xFF000000) >> 24;
-    const unsigned char r8 = (argb32 & 0x00FF0000) >> 16;
-    const unsigned char g8 = (argb32 & 0x0000FF00) >> 8;
-    const unsigned char b8 = (argb32 & 0x000000FF);
-    return [TBColor R: (CGFloat)(r8)/255.f G:(CGFloat)(g8)/255.f B:(CGFloat)(b8)/255.f A:(CGFloat)(a8)/255.f];
+    const uint32_t rgb24 = 0xFFFFFF & argb32;
+    return [TBColor fromRGB24:rgb24 alpha:(CGFloat)(a8)/255.f];
 }
 
 + (TBColor *)fromRGB24:(uint32_t)rgb24 {
