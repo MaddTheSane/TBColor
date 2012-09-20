@@ -76,13 +76,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 - (CGColorSpaceRef)CGColorSpace {
     if (_CGColorSpace == NULL) {
         _CGColorSpace = CGColorGetColorSpace(_CGColor);
+        CGColorSpaceRetain(_CGColorSpace);
     }
     return _CGColorSpace;
 }
 
 - (void)dealloc {
-    CGColorSpaceRelease(_CGColorSpace);
     CGColorRelease(_CGColor);
+    CGColorSpaceRelease(_CGColorSpace);
 }
 
 - (CGColorRef)ref {
