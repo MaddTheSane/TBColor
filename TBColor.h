@@ -16,7 +16,9 @@
 
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
 - (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
+#if !TARGET_OS_IPHONE
 - (id)initWithPatternImage:(NSImage *)image;
+#endif
 - (id)initWithPatternCGImage:(CGImageRef)image; /* retains image, you may release it right away */
 
 - (void)setFillForContext:(CGContextRef)ctx;
@@ -33,7 +35,9 @@
 + (TBColor *)gray:(CGFloat)gray alpha:(CGFloat)alpha;
 + (TBColor *)gray:(CGFloat)gray;
 
+#if !TARGET_OS_IPHONE
 + (TBColor *)withPattern:(NSImage *)pattern;
+#endif
 + (TBColor *)withCGImagePattern:(CGImageRef)pattern;
 
 + (TBColor *)black;

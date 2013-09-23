@@ -19,7 +19,12 @@
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha {
     self = [super init];
     if (self) {
+#if TARGET_OS_IPHONE
+        _CGColorSpace = CGColorSpaceCreateDeviceGray();
+        _CGColor = CGColorCreate(_CGColorSpace, (CGFloat[2]){ gray, alpha });
+#else
         _CGColor = CGColorCreateGenericGray(gray, alpha);
+#endif
     }
     return self;
 }
@@ -27,7 +32,12 @@
 - (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha  {
     self = [super init];
     if (self) {
+#if TARGET_OS_IPHONE
+        _CGColorSpace = CGColorSpaceCreateDeviceRGB();
+        _CGColor = CGColorCreate(_CGColorSpace, (CGFloat[4]){red, green, blue, alpha});
+#else
         _CGColor = CGColorCreateGenericRGB(red, green, blue, alpha);
+#endif
     }
     return self;
 }
@@ -42,7 +52,7 @@ static void ImageReleaseCallback(void *imagePtr) {
 
 static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     static const CGPatternCallbacks callback = {0, ImagePatternCallback, ImageReleaseCallback};
-    CGPatternRef pattern = CGPatternCreate(image, NSMakeRect(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
+    CGPatternRef pattern = CGPatternCreate(image, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
     CGColorSpaceRef coloredPatternColorSpace = CGColorSpaceCreatePattern(NULL);
     CGFloat dummy = 1.0f;
     CGColorRef color = CGColorCreateWithPattern(coloredPatternColorSpace, pattern, &dummy);
@@ -51,6 +61,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return color;
 }
 
+#if !TARGET_OS_IPHONE
 - (id)initWithPatternImage:(NSImage *)image {
     self = [super init];
     if (self)
@@ -61,6 +72,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     }
     return self;
 }
+#endif
 
 - (id)initWithPatternCGImage:(CGImageRef)image {
     self = [super init];
@@ -140,10 +152,11 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return [TBColor fromARGB32:0xFF000000 | rgb24];
 }
 
-
+#if !TARGET_OS_IPHONE
 + (TBColor *)withPattern:(NSImage *)pattern {
     return [[TBColor alloc]initWithPatternImage:pattern];
 }
+#endif
 
 + (TBColor *)withCGImagePattern:(CGImageRef)pattern {
     return [[TBColor alloc]initWithPatternCGImage:pattern];
