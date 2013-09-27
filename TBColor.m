@@ -102,88 +102,96 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return _CGColor;
 }
 
-+ (TBColor *)gray:(CGFloat)gray alpha:(CGFloat)alpha {
++ (TBColor *)colorWithGray:(CGFloat)gray alpha:(CGFloat)alpha {
     return [[TBColor alloc] initWithGenericGray:gray alpha:alpha];
 }
 
-+ (TBColor *)gray:(CGFloat)gray {
-    return [TBColor gray:gray alpha:1.f];
++ (TBColor *)colorWithGray:(CGFloat)gray {
+    return [TBColor colorWithGray:gray alpha:1.f];
 }
 
-+ (TBColor *)black {
++ (TBColor *)blackColor {
     static TBColor *blackColor = nil;
     if (!blackColor) {
-        blackColor = [TBColor gray:0.f];
+        blackColor = [TBColor colorWithGray:0.f];
     }
     return blackColor;
 }
 
-+ (TBColor *)white {
++ (TBColor *)whiteColor {
     static TBColor *whiteColor = nil;
     if (!whiteColor) {
-        whiteColor = [TBColor gray:1.f];
+        whiteColor = [TBColor colorWithGray:1.f];
     }
     return whiteColor;
 }
 
-+ (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha {
++ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue Alpha:(CGFloat)alpha {
     return [[TBColor alloc]initWithGenericRed:red green:green blue:blue alpha:alpha];
 }
 
-+ (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue {
-    return [TBColor R:red G:green B:blue A:1.f];
++ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue {
+    return [TBColor colorWithRed:red Green:green Blue:blue Alpha:1.f];
 }
 
 
-+ (TBColor *)fromRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha {
++ (TBColor *)colorWithRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha {
     const unsigned char r8 = (rgb24 & 0x00FF0000) >> 16;
     const unsigned char g8 = (rgb24 & 0x0000FF00) >> 8;
     const unsigned char b8 = (rgb24 & 0x000000FF);
-    return [TBColor R: (CGFloat)(r8)/255.f G:(CGFloat)(g8)/255.f B:(CGFloat)(b8)/255.f A:(CGFloat)alpha];
+    return [TBColor colorWithRed: (CGFloat)(r8)/255.f Green:(CGFloat)(g8)/255.f Blue:(CGFloat)(b8)/255.f Alpha:(CGFloat)alpha];
 }
 
-+ (TBColor *)fromARGB32:(uint32_t)argb32 {
++ (TBColor *)colorWithARGB32:(uint32_t)argb32 {
     const unsigned char a8 = (argb32 & 0xFF000000) >> 24;
     const uint32_t rgb24 = 0xFFFFFF & argb32;
-    return [TBColor fromRGB24:rgb24 alpha:(CGFloat)(a8)/255.f];
+    return [TBColor colorWithRGB24:rgb24 alpha:(CGFloat)(a8)/255.f];
 }
 
-+ (TBColor *)fromRGB24:(uint32_t)rgb24 {
-    return [TBColor fromARGB32:0xFF000000 | rgb24];
++ (TBColor *)colorWithRGB24:(uint32_t)rgb24 {
+    return [TBColor colorWithARGB32:0xFF000000 | rgb24];
 }
 
 #if !TARGET_OS_IPHONE
-+ (TBColor *)withPattern:(NSImage *)pattern {
++ (TBColor *)colorWithPattern:(NSImage *)pattern {
     return [[TBColor alloc]initWithPatternImage:pattern];
 }
 #endif
 
-+ (TBColor *)withCGImagePattern:(CGImageRef)pattern {
++ (TBColor *)colorWithCGImagePattern:(CGImageRef)pattern {
     return [[TBColor alloc]initWithPatternCGImage:pattern];
 }
 
-+ (TBColor *)red {
++ (TBColor *)redColor {
     static TBColor *redColor = nil;
     if (!redColor) {
-        redColor = [TBColor fromRGB24:0xFF0000];
+        redColor = [TBColor colorWithRGB24:0xFF0000];
     }
     return redColor;
 }
 
-+ (TBColor *)green {
++ (TBColor *)greenColor {
     static TBColor *greenColor = nil;
     if (!greenColor) {
-        greenColor = [TBColor fromRGB24:0x00FF00];
+        greenColor = [TBColor colorWithRGB24:0x00FF00];
     }
     return greenColor;
 }
 
-+ (TBColor *)blue {
++ (TBColor *)blueColor {
     static TBColor *blueColor = nil;
     if (!blueColor) {
-        blueColor = [TBColor fromRGB24:0x0000FF];
+        blueColor = [TBColor colorWithRGB24:0x0000FF];
     }
     return blueColor;
+}
+
++ (TBColor *)clearColor {
+    static TBColor *clearColor = nil;
+    if (!clearColor) {
+        clearColor = [TBColor colorWithGray:0 alpha:0];
+    }
+    return clearColor;
 }
 
 - (void)setFillForContext:(CGContextRef)ctx {

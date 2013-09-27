@@ -24,26 +24,27 @@
 - (void)setFillForContext:(CGContextRef)ctx;
 - (void)setStrokeForContext:(CGContextRef)ctx;
 
-+ (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue A:(CGFloat)alpha;
-+ (TBColor *)R:(CGFloat)red G:(CGFloat)green B:(CGFloat)blue;
++ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue Alpha:(CGFloat)alpha;
++ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue;
 
-+ (TBColor *)fromARGB32:(uint32_t)argb32;    // e.g. TBColor *transluentBlue = [TBColor fromARGB32:0x7F00FF00];
-+ (TBColor *)fromRGB24:(uint32_t)rgb24;      // e.g. TBColor *yellow = [TBColor fromRGB24:0xFFFF00];
-+ (TBColor *)fromRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha;
++ (TBColor *)colorWithARGB32:(uint32_t)argb32;    // e.g. TBColor *transluentBlue = [TBColor fromARGB32:0x7F00FF00];
++ (TBColor *)colorWithRGB24:(uint32_t)rgb24;      // e.g. TBColor *yellow = [TBColor fromRGB24:0xFFFF00];
++ (TBColor *)colorWithRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha;
 
 
-+ (TBColor *)gray:(CGFloat)gray alpha:(CGFloat)alpha;
-+ (TBColor *)gray:(CGFloat)gray;
++ (TBColor *)colorWithGray:(CGFloat)gray alpha:(CGFloat)alpha;
++ (TBColor *)colorWithGray:(CGFloat)gray;
 
 #if !TARGET_OS_IPHONE
-+ (TBColor *)withPattern:(NSImage *)pattern;
++ (TBColor *)colorWithPattern:(NSImage *)pattern;
 #endif
-+ (TBColor *)withCGImagePattern:(CGImageRef)pattern;
++ (TBColor *)colorWithCGImagePattern:(CGImageRef)pattern;
 
-+ (TBColor *)black;
-+ (TBColor *)white;
-+ (TBColor *)red;
-+ (TBColor *)green;
-+ (TBColor *)blue;
++ (TBColor *)blackColor;
++ (TBColor *)whiteColor;
++ (TBColor *)redColor;
++ (TBColor *)greenColor;
++ (TBColor *)blueColor;
++ (TBColor *)clearColor;
 
 @end
