@@ -11,8 +11,12 @@
 @interface TBColor : NSObject
 
 @property (nonatomic, readonly) CGColorRef CGColor;
+- (CGColorRef)CGColor NS_RETURNS_INNER_POINTER;
+
 @property (nonatomic, readonly) CGColorSpaceRef CGColorSpace;
-- (CGColorRef)ref; // shortcut for CGColor property
+- (CGColorSpaceRef)CGColorSpace NS_RETURNS_INNER_POINTER;
+
+- (CGColorRef)ref NS_RETURNS_INNER_POINTER; // shortcut for CGColor property
 
 - (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
 - (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
