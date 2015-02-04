@@ -85,6 +85,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return self;
 }
 
+- (instancetype)initWithCGColor:(CGColorRef)color
+{
+	if (self = [super init]) {
+		_CGColor = CGColorRetain(color);
+	}
+	return self;
+}
+
 - (CGColorSpaceRef)CGColorSpace {
     if (_CGColorSpace == NULL) {
         _CGColorSpace = CGColorGetColorSpace(_CGColor);
