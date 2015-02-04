@@ -135,11 +135,11 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return whiteColor;
 }
 
-+ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue Alpha:(CGFloat)alpha {
-    return [[TBColor alloc]initWithGenericRed:red green:green blue:blue alpha:alpha];
++ (TBColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
+    return [[TBColor alloc] initWithGenericRed:red green:green blue:blue alpha:alpha];
 }
 
-+ (TBColor *)colorWithRed:(CGFloat)red Green:(CGFloat)green Blue:(CGFloat)blue {
++ (TBColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
     return [TBColor colorWithRed:red Green:green Blue:blue Alpha:1.f];
 }
 
