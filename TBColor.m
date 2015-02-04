@@ -50,6 +50,7 @@ static void ImageReleaseCallback(void *imagePtr) {
     CGImageRelease(imagePtr);
 }
 
+static CGColorRef CGColorMakeFromImage(CGImageRef image) CF_RETURNS_RETAINED;
 static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     static const CGPatternCallbacks callback = {0, ImagePatternCallback, ImageReleaseCallback};
     CGPatternRef pattern = CGPatternCreate(image, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), CGAffineTransformIdentity, CGImageGetWidth(image), CGImageGetHeight(image), kCGPatternTilingConstantSpacing, true, &callback);
