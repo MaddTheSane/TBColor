@@ -21,7 +21,7 @@
 @implementation TBColor
 @synthesize CGColor = _CGColor;
 
-- (id)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha {
+- (instancetype)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha {
     self = [super init];
     if (self) {
 #if TARGET_OS_IPHONE
@@ -34,7 +34,7 @@
     return self;
 }
 
-- (id)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha  {
+- (instancetype)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha  {
     self = [super init];
     if (self) {
 #if TARGET_OS_IPHONE
@@ -68,7 +68,7 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 }
 
 #if !TARGET_OS_IPHONE
-- (id)initWithPatternImage:(NSImage *)image {
+- (instancetype)initWithPatternImage:(NSImage *)image {
     self = [super init];
     if (self)
     {
@@ -78,9 +78,14 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     }
     return self;
 }
+
+- (instancetype)initWithColor:(NSColor*)color
+{
+	return [self initWithCGColor:color.CGColor];
+}
 #endif
 
-- (id)initWithPatternCGImage:(CGImageRef)image {
+- (instancetype)initWithPatternCGImage:(CGImageRef)image {
     self = [super init];
     if (self)
     {
@@ -116,11 +121,11 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return _CGColor;
 }
 
-+ (TBColor *)colorWithGray:(CGFloat)gray alpha:(CGFloat)alpha {
++ (instancetype)colorWithGray:(CGFloat)gray alpha:(CGFloat)alpha {
     return [[TBColor alloc] initWithGenericGray:gray alpha:alpha];
 }
 
-+ (TBColor *)colorWithGray:(CGFloat)gray {
++ (instancetype)colorWithGray:(CGFloat)gray {
     return [TBColor colorWithGray:gray alpha:1.f];
 }
 
@@ -140,39 +145,43 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
     return whiteColor;
 }
 
-+ (TBColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
++ (instancetype)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha {
     return [[TBColor alloc] initWithGenericRed:red green:green blue:blue alpha:alpha];
 }
 
-+ (TBColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
-    return [TBColor colorWithRed:red Green:green Blue:blue Alpha:1.f];
++ (instancetype)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
+    return [TBColor colorWithRed:red green:green blue:blue alpha:1.f];
 }
 
 
-+ (TBColor *)colorWithRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha {
++ (instancetype)colorWithRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha {
     const unsigned char r8 = (rgb24 & 0x00FF0000) >> 16;
     const unsigned char g8 = (rgb24 & 0x0000FF00) >> 8;
     const unsigned char b8 = (rgb24 & 0x000000FF);
-    return [TBColor colorWithRed: (CGFloat)(r8)/255.f Green:(CGFloat)(g8)/255.f Blue:(CGFloat)(b8)/255.f Alpha:(CGFloat)alpha];
+    return [TBColor colorWithRed: (CGFloat)(r8)/255.f green:(CGFloat)(g8)/255.f blue:(CGFloat)(b8)/255.f alpha:(CGFloat)alpha];
 }
 
-+ (TBColor *)colorWithARGB32:(uint32_t)argb32 {
++ (instancetype)colorWithARGB32:(uint32_t)argb32 {
     const unsigned char a8 = (argb32 & 0xFF000000) >> 24;
     const uint32_t rgb24 = 0xFFFFFF & argb32;
     return [TBColor colorWithRGB24:rgb24 alpha:(CGFloat)(a8)/255.f];
 }
 
-+ (TBColor *)colorWithRGB24:(uint32_t)rgb24 {
++ (instancetype)colorWithRGB24:(uint32_t)rgb24 {
     return [TBColor colorWithARGB32:0xFF000000 | rgb24];
 }
 
 #if !TARGET_OS_IPHONE
-+ (TBColor *)colorWithPattern:(NSImage *)pattern {
++ (instancetype)colorWithPattern:(NSImage *)pattern {
     return [[TBColor alloc] initWithPatternImage:pattern];
+}
+
++ (instancetype)colorWithColor:(NSColor*)color {
+	return [[TBColor alloc] initWithColor:color];
 }
 #endif
 
-+ (TBColor *)colorWithCGImagePattern:(CGImageRef)pattern {
++ (instancetype)colorWithCGImagePattern:(CGImageRef)pattern {
     return [[TBColor alloc] initWithPatternCGImage:pattern];
 }
 

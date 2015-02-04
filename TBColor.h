@@ -25,6 +25,7 @@
 - (instancetype)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 #if !TARGET_OS_IPHONE
 - (instancetype)initWithPatternImage:(NSImage *)image;
+- (instancetype)initWithColor:(NSColor*)color;
 #endif
 /** retains image, you may release it right away */
 - (instancetype)initWithPatternCGImage:(CGImageRef)image;
@@ -49,6 +50,7 @@
 
 #if !TARGET_OS_IPHONE
 + (instancetype)colorWithPattern:(NSImage *)pattern;
++ (instancetype)colorWithColor:(NSColor*)color;
 #endif
 + (instancetype)colorWithCGImagePattern:(CGImageRef)pattern;
 
