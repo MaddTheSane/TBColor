@@ -7,23 +7,27 @@
 //  Licensed under WTFPL http://sam.zoy.org/wtfpl/
 
 #import <Foundation/Foundation.h>
+#include <CoreGraphics/CoreGraphics.h>
+
+#if !TARGET_OS_IPHONE
+@class NSImage;
+#endif
 
 @interface TBColor : NSObject
 
-@property (nonatomic, readonly) CGColorRef CGColor;
-- (CGColorRef)CGColor NS_RETURNS_INNER_POINTER;
+@property (nonatomic, readonly) CGColorRef CGColor NS_RETURNS_INNER_POINTER;
+@property (nonatomic, readonly) CGColorSpaceRef CGColorSpace NS_RETURNS_INNER_POINTER;
 
-@property (nonatomic, readonly) CGColorSpaceRef CGColorSpace;
-- (CGColorSpaceRef)CGColorSpace NS_RETURNS_INNER_POINTER;
-
-- (CGColorRef)ref NS_RETURNS_INNER_POINTER; // shortcut for CGColor property
+//* shortcut for CGColor property
+- (CGColorRef)ref NS_RETURNS_INNER_POINTER;
 
 - (instancetype)initWithGenericGray:(CGFloat)gray alpha:(CGFloat)alpha;
 - (instancetype)initWithGenericRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 #if !TARGET_OS_IPHONE
 - (instancetype)initWithPatternImage:(NSImage *)image;
 #endif
-- (instancetype)initWithPatternCGImage:(CGImageRef)image; /* retains image, you may release it right away */
+/** retains image, you may release it right away */
+- (instancetype)initWithPatternCGImage:(CGImageRef)image;
 
 - (instancetype)initWithCGColor:(CGColorRef)color;
 
@@ -33,8 +37,10 @@
 + (instancetype)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 + (instancetype)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
 
-+ (instancetype)colorWithARGB32:(uint32_t)argb32;    // e.g. TBColor *transluentBlue = [TBColor fromARGB32:0x7F00FF00];
-+ (instancetype)colorWithRGB24:(uint32_t)rgb24;      // e.g. TBColor *yellow = [TBColor fromRGB24:0xFFFF00];
+//* e.g. TBColor *transluentBlue = [TBColor fromARGB32:0x7F00FF00];
++ (instancetype)colorWithARGB32:(uint32_t)argb32;
+//* e.g. TBColor *yellow = [TBColor fromRGB24:0xFFFF00];
++ (instancetype)colorWithRGB24:(uint32_t)rgb24;
 + (instancetype)colorWithRGB24:(uint32_t)rgb24 alpha:(CGFloat)alpha;
 
 

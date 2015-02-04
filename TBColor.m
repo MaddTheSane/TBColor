@@ -7,6 +7,11 @@
 //  Licensed under WTFPL http://sam.zoy.org/wtfpl/
 
 #import "TBColor.h"
+
+#if !TARGET_OS_IPHONE
+#import <AppKit/AppKit.h>
+#endif
+
 @interface TBColor () {
     CGColorRef _CGColor;
     CGColorSpaceRef _CGColorSpace;
@@ -163,12 +168,12 @@ static CGColorRef CGColorMakeFromImage(CGImageRef image) {
 
 #if !TARGET_OS_IPHONE
 + (TBColor *)colorWithPattern:(NSImage *)pattern {
-    return [[TBColor alloc]initWithPatternImage:pattern];
+    return [[TBColor alloc] initWithPatternImage:pattern];
 }
 #endif
 
 + (TBColor *)colorWithCGImagePattern:(CGImageRef)pattern {
-    return [[TBColor alloc]initWithPatternCGImage:pattern];
+    return [[TBColor alloc] initWithPatternCGImage:pattern];
 }
 
 + (TBColor *)redColor {
